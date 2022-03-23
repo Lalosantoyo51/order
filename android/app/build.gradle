@@ -71,11 +71,27 @@ flutter {
     source '../..'
 }
 
+//App level build.gradle
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.google.android.gms:play-services-location:16.0.0'
+    }
+}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:1.0.3'
     implementation platform('com.google.firebase:firebase-bom:27.0.0')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'//add this line
+    constraints {
+        implementation('com.google.android.gms:play-services-location') {
+            version {
+                strictly "16.0.0"
+            }
+            because 'location: 4.1.1 does not specify version & google.bintray.com answers 502 Bad Gateway'
+        }
+    }
 
 }
